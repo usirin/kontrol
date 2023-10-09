@@ -9,9 +9,9 @@
   "devDependencies": {
     "eslint": "^8.48.0",
     "prettier": "^3.0.3",
-    "tsconfig": "workspace:*",
+    "@kontrol/tsconfig": "workspace:*",
     "turbo": "latest"
   },
   "packageManager": "pnpm@8.6.10",
-  "name": "kontrol"
+  "name": "@kontrol/monorepo"
 }
