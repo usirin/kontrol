@@ -2,7 +2,6 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { Orientation } from "./constants";
 import { createNode } from "./createNode";
 import { createTree } from "./createTree";
-import { NodeType } from "./models/Node";
 import type { Tree } from "./models/Tree";
 import { split } from "./split";
 
@@ -50,8 +49,6 @@ describe("split", () => {
 
       expect(newTree.root.orientation).toBe(Orientation.Vertical);
       expect(newTree.root.children.length).toBe(2);
-
-      expect(newTree.root.children[0].type).toBe(NodeType.Parent);
     });
   });
 

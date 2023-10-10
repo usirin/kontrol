@@ -1,20 +1,13 @@
 import type { Orientation } from "../constants";
 
-export enum NodeType {
-  Node = "node",
-  Parent = "parent",
-}
-
 export class Node<T = unknown> {
-  public type: NodeType;
   public orientation: Orientation | null;
   public meta: T;
   public parent: Node | null;
 
   public children: Node[] = [];
 
-  constructor(type: NodeType, meta: T, orientation: Orientation | null = null) {
-    this.type = type;
+  constructor(meta: T, orientation: Orientation | null = null) {
     this.orientation = orientation;
     this.meta = meta;
     this.parent = null;
@@ -25,7 +18,7 @@ export class Node<T = unknown> {
   }
 
   public clone() {
-    const cloned = new Node<T>(this.type, this.meta, this.orientation);
+    const cloned = new Node<T>(this.meta, this.orientation);
 
     if (this.parent) {
       cloned.setParent(this.parent);
