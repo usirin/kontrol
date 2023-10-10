@@ -2,23 +2,23 @@ import type { Orientation } from "../constants";
 
 export class Node<T = unknown> {
   public orientation: Orientation | null;
-  public meta: T;
-  public parent: Node | null;
+  public value: T;
+  public parent: Node<T> | null;
 
-  public children: Node[] = [];
+  public children: Node<T>[] = [];
 
-  constructor(meta: T, orientation: Orientation | null = null) {
+  constructor(value: T, orientation: Orientation | null = null) {
     this.orientation = orientation;
-    this.meta = meta;
+    this.value = value;
     this.parent = null;
   }
 
-  public setParent(parent: Node) {
+  public setParent(parent: Node<T>) {
     this.parent = parent;
   }
 
   public clone() {
-    const cloned = new Node<T>(this.meta, this.orientation);
+    const cloned = new Node<T>(this.value, this.orientation);
 
     if (this.parent) {
       cloned.setParent(this.parent);
@@ -27,7 +27,7 @@ export class Node<T = unknown> {
     return cloned;
   }
 
-  public attachChildren(children: Node[]) {
+  public attachChildren(children: Node<T>[]) {
     this.children = children.map((child) => {
       child.setParent(this);
       return child;

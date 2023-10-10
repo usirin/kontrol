@@ -7,14 +7,14 @@ import { split } from "./split";
 
 describe("split", () => {
   it("returns the tree unchanged if there is not a node at given index", () => {
-    const tree = createTree(createNode({ meta: { id: "root" } }));
+    const tree = createTree(createNode({ value: { id: "root" } }));
     const newTree = split(tree, 5, Orientation.Vertical);
 
     expect(newTree === tree).toBe(true);
   });
 
   it("splits an empty tree correctly", () => {
-    const tree = createTree(createNode({ meta: { id: "root" } }));
+    const tree = createTree(createNode({ value: { id: "root" } }));
     const newTree = split(tree, 0, Orientation.Vertical);
 
     expect(newTree.root.children.length).toEqual(2);
@@ -27,11 +27,11 @@ describe("split", () => {
     beforeEach(() => {
       tree = createTree(
         createNode({
-          meta: { id: "root" },
+          value: { id: "root" },
           orientation: Orientation.Vertical,
           children: [
-            createNode({ meta: { id: 0 } }),
-            createNode({ meta: { id: 1 } }),
+            createNode({ value: { id: 0 } }),
+            createNode({ value: { id: 1 } }),
           ],
         }),
       );
@@ -39,9 +39,9 @@ describe("split", () => {
 
     it("should have 3 children under root if split orientation is vertical", () => {
       const newTree = split(tree, 0, Orientation.Vertical);
-      expect((newTree.root.children[0].meta as { id: number }).id).toBe(0);
-      expect((newTree.root.children[1].meta as { id: number }).id).toBe(0);
-      expect((newTree.root.children[2].meta as { id: number }).id).toBe(1);
+      expect((newTree.root.children[0].value as { id: number }).id).toBe(0);
+      expect((newTree.root.children[1].value as { id: number }).id).toBe(0);
+      expect((newTree.root.children[2].value as { id: number }).id).toBe(1);
     });
 
     it("should handle horizontal split", () => {
@@ -55,21 +55,21 @@ describe("split", () => {
   it("should handle complex splits", () => {
     const tree = createTree(
       createNode({
-        meta: { id: "root" },
+        value: { id: "root" },
         orientation: Orientation.Vertical,
         children: [
-          createNode({ meta: { id: 0 } }),
+          createNode({ value: { id: 0 } }),
           createNode({
-            meta: { id: "parent-0" },
+            value: { id: "parent-0" },
             orientation: Orientation.Horizontal,
             children: [
-              createNode({ meta: { id: 1 } }),
-              createNode({ meta: { id: 2 } }),
-              createNode({ meta: { id: 3 } }),
+              createNode({ value: { id: 1 } }),
+              createNode({ value: { id: 2 } }),
+              createNode({ value: { id: 3 } }),
             ],
           }),
-          createNode({ meta: { id: 4 } }),
-          createNode({ meta: { id: 5 } }),
+          createNode({ value: { id: 4 } }),
+          createNode({ value: { id: 5 } }),
         ],
       }),
     );

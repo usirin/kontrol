@@ -4,31 +4,31 @@ import { createNode } from "./createNode";
 import { createTree } from "./createTree";
 import { getAt } from "./getAt";
 
-const tree = createTree(
+const tree = createTree<{ id: string | number }>(
   createNode({
-    meta: { id: "root" },
+    value: { id: "root" },
     orientation: Orientation.Vertical,
     children: [
-      createNode({ meta: { id: 0 } }),
+      createNode({ value: { id: 0 } }),
       createNode({
-        meta: { id: "parent-0" },
+        value: { id: "parent-0" },
         orientation: Orientation.Horizontal,
         children: [
-          createNode({ meta: { id: 1 } }),
-          createNode({ meta: { id: 2 } }),
-          createNode({ meta: { id: 3 } }),
+          createNode({ value: { id: 1 } }),
+          createNode({ value: { id: 2 } }),
+          createNode({ value: { id: 3 } }),
         ],
       }),
-      createNode({ meta: { id: 4 } }),
-      createNode({ meta: { id: 5 } }),
+      createNode({ value: { id: 4 } }),
+      createNode({ value: { id: 5 } }),
     ],
   }),
 );
 
 describe("getAt", () => {
   it("returns the node at given index", () => {
-    const node = getAt<{ id: number }>(tree, 0);
-    expect(node?.meta.id).toEqual(0);
+    const node = getAt(tree, 4);
+    expect(node?.value.id).toEqual(4);
   });
 
   it("returns null when not found", () => {

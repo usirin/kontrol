@@ -1,8 +1,9 @@
-import { Node } from "./Node";
-export class Tree {
-  public root: Node;
+import type { Node } from "./Node";
 
-  constructor(root: Node) {
+export class Tree<T> {
+  public root: Node<T>;
+
+  constructor(root: Node<T>) {
     this.root = root;
   }
 }

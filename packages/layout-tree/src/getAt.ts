@@ -1,31 +1,34 @@
 import type { Node } from "./models/Node";
 import type { Tree } from "./models/Tree";
 
-export const traverse = (
-  root: Node,
-  traverser: (node: Node, index: number) => void,
+export const traverse = <T>(
+  root: Node<T>,
+  traverser: (node: Node<T>, index: number) => void,
 ) => {
   let index = 0;
 
-  const traverseChildren = (node_: Node) => {
-    node_.children.forEach(traverseChildren);
-    traverser(node_, index++);
+  const traverseChildren = (node: Node<T>) => {
+    node.children.forEach((child: Node<T>) => {
+      traverseChildren(child);
+    });
+    traverser(node, index++);
   };
 
   traverseChildren(root);
 };
 
-export const getAt = <T = unknown>(
-  tree: Tree,
-  index: number,
-): Node<T> | null => {
-  let node: Node<T> | null = null;
+export const getAt = <T>(tree: Tree<T>, index: number): Node<T> | null => {
+  let leaf: Node<T> | null = null;
 
-  traverse(tree.root, (leaf, i) => {
-    if (i === index) {
-      node = leaf as Node<T>;
+  let i = 0;
+  traverse(tree.root, (node) => {
+    if (node.children.length === 0) {
+      if (i === index) {
+        leaf = node;
+      }
+      i += 1;
     }
   });
 
-  return node;
+  return leaf;
 };

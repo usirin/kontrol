@@ -29,8 +29,8 @@ describe("Node", () => {
 
       parent.attachChildren([new Node({ id: 1 }), new Node({ id: 2 })]);
 
-      expect((parent.children[0].meta as { id: number }).id).toBe(1);
-      expect((parent.children[1].meta as { id: number }).id).toBe(2);
+      expect((parent.children[0].value as { id: number }).id).toBe(1);
+      expect((parent.children[1].value as { id: number }).id).toBe(2);
     });
   });
 

@@ -9,20 +9,20 @@ describe("remove", () => {
     it("works", () => {
       const tree = createTree(
         createNode({
-          meta: { id: "root" },
+          value: { id: "root" },
           orientation: Orientation.Vertical,
           children: [
-            createNode({ meta: { id: 0 } }),
-            createNode({ meta: { id: 1 } }),
-            createNode({ meta: { id: 2 } }),
+            createNode({ value: { id: 0 } }),
+            createNode({ value: { id: 1 } }),
+            createNode({ value: { id: 2 } }),
           ],
         }),
       );
 
       const newTree = remove(tree, 1);
       expect(newTree.root.children.length).toEqual(2);
-      expect(newTree.root.children[0].meta).toEqual({ id: 0 });
-      expect(newTree.root.children[1].meta).toEqual({ id: 2 });
+      expect(newTree.root.children[0].value).toEqual({ id: 0 });
+      expect(newTree.root.children[1].value).toEqual({ id: 2 });
     });
   });
 
@@ -30,41 +30,41 @@ describe("remove", () => {
     it("should replace root with itself", () => {
       const tree = createTree(
         createNode({
-          meta: { id: "root" },
+          value: { id: "root" },
           orientation: Orientation.Vertical,
           children: [
-            createNode({ meta: { id: 0 } }),
-            createNode({ meta: { id: 1 } }),
+            createNode({ value: { id: 0 } }),
+            createNode({ value: { id: 1 } }),
           ],
         }),
       );
 
       const newTree = remove(tree, 1);
-      expect(newTree.root.meta).toEqual({ id: 0 });
+      expect(newTree.root.value).toEqual({ id: 0 });
     });
 
     it("should replace parent with itself", () => {
       const tree = createTree(
         createNode({
-          meta: { id: "root" },
+          value: { id: "root" },
           orientation: Orientation.Vertical,
           children: [
             createNode({
-              meta: { id: "0" },
+              value: { id: "0" },
               orientation: Orientation.Vertical,
               children: [
-                createNode({ meta: { id: "00" } }),
-                createNode({ meta: { id: "01" } }),
+                createNode({ value: { id: "00" } }),
+                createNode({ value: { id: "01" } }),
               ],
             }),
-            createNode({ meta: { id: "1" } }),
-            createNode({ meta: { id: "2" } }),
+            createNode({ value: { id: "1" } }),
+            createNode({ value: { id: "2" } }),
           ],
         }),
       );
 
       const newTree = remove(tree, 1);
-      expect(newTree.root.children[0].meta).toEqual({ id: "00" });
+      expect(newTree.root.children[0].value).toEqual({ id: "00" });
     });
   });
 });

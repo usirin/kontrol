@@ -17,7 +17,7 @@ export const split = (
   const clone = node.clone();
 
   if (node === tree.root) {
-    const newRoot = createNode({ meta: node.meta, orientation });
+    const newRoot = createNode({ value: node.value, orientation });
     newRoot.attachChildren([node, clone]);
     return new Tree(newRoot);
   }
@@ -35,7 +35,7 @@ export const split = (
 
   let toBeInserted: Node[];
   if (orientation !== parent.orientation) {
-    const newParent = createNode({ meta: node.meta, orientation });
+    const newParent = createNode({ value: node.value, orientation });
     newParent.attachChildren([node, clone]);
     toBeInserted = [newParent];
   } else {
