@@ -1,13 +1,13 @@
-import type { Orientation } from "../constants";
+import type { LegacyOrientation } from "../constants";
 
 export class Node<T = unknown> {
-  public orientation: Orientation | null;
+  public orientation: LegacyOrientation | null;
   public value: T;
   public parent: Node<T> | null;
 
   public children: Node<T>[] = [];
 
-  constructor(value: T, orientation: Orientation | null = null) {
+  constructor(value: T, orientation: LegacyOrientation | null = null) {
     this.orientation = orientation;
     this.value = value;
     this.parent = null;

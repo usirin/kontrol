@@ -12,6 +12,12 @@
     "@kontrol/tsconfig": "workspace:*",
     "turbo": "latest"
   },
+  "prettier": {
+    "bracketSpacing": false
+  },
   "packageManager": "pnpm@8.6.10",
-  "name": "@kontrol/monorepo"
+  "name": "@kontrol/monorepo",
+  "volta": {
+    "node": "20.8.1"
+  }
 }

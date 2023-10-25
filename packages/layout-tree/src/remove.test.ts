@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { Orientation } from "./constants";
+import { LegacyOrientation } from "./constants";
 import { createNode } from "./createNode";
 import { createTree } from "./createTree";
 import { remove } from "./remove";
@@ -7,10 +7,10 @@ import { remove } from "./remove";
 describe("remove", () => {
   describe("when there are more than 2 children", () => {
     it("works", () => {
-      const tree = createTree(
+      const tree = createTree<{ id: number | string }>(
         createNode({
           value: { id: "root" },
-          orientation: Orientation.Vertical,
+          orientation: LegacyOrientation.Vertical,
           children: [
             createNode({ value: { id: 0 } }),
             createNode({ value: { id: 1 } }),
@@ -31,7 +31,7 @@ describe("remove", () => {
       const tree = createTree(
         createNode({
           value: { id: "root" },
-          orientation: Orientation.Vertical,
+          orientation: LegacyOrientation.Vertical,
           children: [
             createNode({ value: { id: 0 } }),
             createNode({ value: { id: 1 } }),
@@ -47,11 +47,11 @@ describe("remove", () => {
       const tree = createTree(
         createNode({
           value: { id: "root" },
-          orientation: Orientation.Vertical,
+          orientation: LegacyOrientation.Vertical,
           children: [
             createNode({
               value: { id: "0" },
-              orientation: Orientation.Vertical,
+              orientation: LegacyOrientation.Vertical,
               children: [
                 createNode({ value: { id: "00" } }),
                 createNode({ value: { id: "01" } }),

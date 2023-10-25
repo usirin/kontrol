@@ -9,13 +9,13 @@
     "generate:component": "turbo gen react-component"
   },
   "devDependencies": {
+    "@kontrol/eslint-config": "workspace:*",
+    "@kontrol/tsconfig": "workspace:*",
     "@turbo/gen": "^1.10.12",
     "@types/node": "^20.5.2",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
-    "@kontrol/eslint-config": "workspace:*",
     "react": "^18.2.0",
-    "@kontrol/tsconfig": "workspace:*",
-    "typescript": "^4.5.2"
+    "typescript": "^5.2.2"
   }
 }

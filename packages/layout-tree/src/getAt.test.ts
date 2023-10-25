@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { Orientation } from "./constants";
+import { LegacyOrientation } from "./constants";
 import { createNode } from "./createNode";
 import { createTree } from "./createTree";
 import { getAt } from "./getAt";
@@ -7,12 +7,12 @@ import { getAt } from "./getAt";
 const tree = createTree<{ id: string | number }>(
   createNode({
     value: { id: "root" },
-    orientation: Orientation.Vertical,
+    orientation: LegacyOrientation.Vertical,
     children: [
       createNode({ value: { id: 0 } }),
       createNode({
         value: { id: "parent-0" },
-        orientation: Orientation.Horizontal,
+        orientation: LegacyOrientation.Horizontal,
         children: [
           createNode({ value: { id: 1 } }),
           createNode({ value: { id: 2 } }),

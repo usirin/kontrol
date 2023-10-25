@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion -- if parent is not null, it means node has a parent */
-import { Direction, Orientation } from "./constants";
+import { Direction, LegacyOrientation } from "./constants";
 import type { Node } from "./models/Node";
 
 export const findSibling = <T = unknown>(
@@ -9,12 +9,12 @@ export const findSibling = <T = unknown>(
   initialNode = node,
 ): Node<T> | null => {
   const orientation = getOrientation(direction);
-  const parent = findParentWithOrientation(node, orientation) as Node<T> | null;
+  const parent = findParentWithOrientation(node, orientation);
 
   if (!parent) return initialNode;
 
   if (parent !== node.parent) {
-    const next = node.parent as Node<T>;
+    const next = node.parent!;
     const index = relativeIndex ?? next.indexOf(node);
     return findSibling(next, direction, index, initialNode);
   }
@@ -32,10 +32,10 @@ export const findSibling = <T = unknown>(
   return findChild(parent, orientation, direction, newIndex, relativeIndex);
 };
 
-const findParentWithOrientation = (
-  node: Node,
-  orientation: Orientation,
-): Node | null => {
+const findParentWithOrientation = <T>(
+  node: Node<T>,
+  orientation: LegacyOrientation,
+): Node<T> | null => {
   if (!node.parent) return null;
 
   if (node.parent.orientation === orientation) {
@@ -47,7 +47,7 @@ const findParentWithOrientation = (
 
 const findChild = <T>(
   parent: Node<T>,
-  orientation: Orientation,
+  orientation: LegacyOrientation,
   direction: Direction,
   index: number,
   relativeIndex = 0,
@@ -80,8 +80,8 @@ const clamp = (num: number, lower: number, upper: number) =>
 
 const getOrientation = (direction: Direction) =>
   [Direction.Up, Direction.Down].includes(direction)
-    ? Orientation.Horizontal
-    : Orientation.Vertical;
+    ? LegacyOrientation.Horizontal
+    : LegacyOrientation.Vertical;
 
 const getSiblingIndex = (direction: Direction, index: number) =>
   isGoingBack(direction) ? index - 1 : index + 1;

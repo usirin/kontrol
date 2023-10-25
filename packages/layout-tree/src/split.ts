@@ -1,14 +1,14 @@
-import type { Orientation } from "./constants";
+import type { LegacyOrientation } from "./constants";
 import { createNode } from "./createNode";
 import { getAt } from "./getAt";
 import { Tree } from "./models/Tree";
 import type { Node } from "./models/Node";
 
-export const split = (
-  tree: Tree,
+export const split = <T>(
+  tree: Tree<T>,
   index: number,
-  orientation: Orientation,
-): Tree => {
+  orientation: LegacyOrientation,
+): Tree<T> => {
   const node = getAt(tree, index);
   if (!node) {
     return tree;
@@ -33,7 +33,7 @@ export const split = (
 
   const childIndex = parent.children.indexOf(node);
 
-  let toBeInserted: Node[];
+  let toBeInserted: Node<T>[];
   if (orientation !== parent.orientation) {
     const newParent = createNode({ value: node.value, orientation });
     newParent.attachChildren([node, clone]);

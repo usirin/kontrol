@@ -1,7 +1,7 @@
 import { getAt } from "./getAt";
 import { Tree } from "./models/Tree";
 
-export const remove = (tree: Tree, index: number): Tree => {
+export const remove = <T>(tree: Tree<T>, index: number): Tree<T> => {
   const node = getAt(tree, index);
   if (!node) {
     return tree;

@@ -1,22 +1,39 @@
-import type { Orientation } from "./constants";
+import type { LegacyOrientation } from "./constants";
 import { Node } from "./models/Node";
 
 interface CreateNodeArgs<T> {
   value: T;
-  children?: Node[];
-  orientation?: Orientation;
+  children?: Node<T>[];
+  orientation?: LegacyOrientation;
 }
+
+let counter = 0;
+const id = (initial?: string) => initial ?? `${counter++}`;
+
+export function node<T>(value: T) {
+  return createNode({ value });
+}
+
+export const group = <T>(
+  orientation: "vertical" | "horizontal",
+  children: Node<T>[],
+) =>
+  createNode({
+    value: id() as T,
+    children,
+    orientation: orientation as LegacyOrientation,
+  });
 
 export const createNode = <T>({
   value,
   children,
   orientation,
 }: CreateNodeArgs<T>) => {
-  const node = new Node<T>(value, orientation);
+  const parent = new Node<T>(value, orientation);
 
   if (children) {
-    node.attachChildren(children);
+    parent.attachChildren(children);
   }
 
-  return node;
+  return parent;
 };

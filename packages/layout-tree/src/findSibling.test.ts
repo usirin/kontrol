@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion -- no need */
 import { describe, expect, it } from "vitest";
 import type { Node } from "./models/Node";
-import { Direction, Orientation } from "./constants";
+import { Direction, LegacyOrientation } from "./constants";
 import { createNode } from "./createNode";
 import { createTree } from "./createTree";
 import { getAt } from "./getAt";
@@ -24,13 +24,13 @@ import { findSibling } from "./findSibling";
 */
 const simpleTree = createTree(
   createNode({
-    value: { id: "root" },
-    orientation: Orientation.Vertical,
+    value: { id: Infinity },
+    orientation: LegacyOrientation.Vertical,
     children: [
       createNode({ value: { id: 0 } }),
       createNode({
-        value: { id: "parent-0" },
-        orientation: Orientation.Horizontal,
+        value: { id: -1 },
+        orientation: LegacyOrientation.Horizontal,
         children: [
           createNode({ value: { id: 1 } }),
           createNode({ value: { id: 2 } }),
@@ -46,52 +46,46 @@ const simpleTree = createTree(
 const p = createNode;
 const n = <T>(meta: T) => createNode<T>({ value: meta });
 
-// interface Noodle {
-//   key: string;
-//   parent?: Noodle;
-//   children: Noodle[];
-// }
-
 const complexTree = createTree(
   p({
     value: { id: "_root" },
-    orientation: Orientation.Horizontal,
+    orientation: LegacyOrientation.Horizontal,
     children: [
       p({
         value: { id: "0" },
-        orientation: Orientation.Vertical,
+        orientation: LegacyOrientation.Vertical,
         children: [
           n({ id: "00" }),
           p({
             value: { id: "01" },
-            orientation: Orientation.Horizontal,
+            orientation: LegacyOrientation.Horizontal,
             children: [n({ id: "010" }), n({ id: "011" })],
           }),
         ],
       }),
       p({
         value: { id: "1" },
-        orientation: Orientation.Vertical,
+        orientation: LegacyOrientation.Vertical,
         children: [
           n({ id: "10" }),
           p({
             value: { id: "11" },
-            orientation: Orientation.Horizontal,
+            orientation: LegacyOrientation.Horizontal,
             children: [
               p({
                 value: { id: "110" },
-                orientation: Orientation.Vertical,
+                orientation: LegacyOrientation.Vertical,
                 children: [n({ id: "1100" }), n({ id: "1101" })],
               }),
               n({ id: "111" }),
               p({
                 value: { id: "112" },
-                orientation: Orientation.Vertical,
+                orientation: LegacyOrientation.Vertical,
                 children: [
                   n({ id: "1120" }),
                   p({
                     value: { id: "1121" },
-                    orientation: Orientation.Horizontal,
+                    orientation: LegacyOrientation.Horizontal,
                     children: [n({ id: "11210" }), n({ id: "11211" })],
                   }),
                 ],
@@ -100,12 +94,12 @@ const complexTree = createTree(
           }),
           p({
             value: { id: "12" },
-            orientation: Orientation.Horizontal,
+            orientation: LegacyOrientation.Horizontal,
             children: [
               n({ id: "120" }),
               p({
                 value: { id: "121" },
-                orientation: Orientation.Vertical,
+                orientation: LegacyOrientation.Vertical,
                 children: [n({ id: "1210" }), n({ id: "1211" })],
               }),
             ],
@@ -115,7 +109,6 @@ const complexTree = createTree(
     ],
   }),
 );
-// const jsonTree = [0, [1, 2, 3], 4, 5];
 
 describe("with relatively simple tree", () => {
   let node: Node<{ id: number }> | null;
