@@ -1,0 +1,106 @@
+:root {
+  --color-background-code: #050a15;
+  --color-background-default: #081120;
+  --color-brand: #dcadff;
+  --color-button-background: #2a3343;
+  --color-button-background-hover: #39414d;
+  --color-button-border: #18181a;
+  --color-code: #dcadff;
+  --color-default: #ffffff;
+  --color-dim: #91a0ba;
+  --color-horizontal-rule: #39414d;
+  --color-input: #ffffff;
+  --color-input-background: #18181a;
+  --color-input-border: #39414d;
+  --color-input-border-focused: #dcadff;
+  --color-link: #dcadff;
+  --color-panel-background: #192230;
+  --color-panel-background-alternate: #202124;
+  --color-solid-resize-bar: #707bf4;
+  --color-scroll-thumb: #39414d;
+  --color-warning-background: #7400cc;
+
+  --color-logo-background: #2a3343;
+  --color-logo-chip-1: #dcadff;
+  --color-logo-chip-2: #ff79ad;
+  --color-logo-chip-3: #ffdc7a;
+  --color-logo-chip-4: #7ac1ff;
+
+  --token-comment-color: #666;
+  --token-definition-color: #fefefe;
+  --token-local-color: #fefefe;
+  --token-keyword-color: #ff7aad;
+  --token-meta-color: #8237bb;
+  --token-number-color: #ffdc7a;
+  --token-operator-color: #fefefe;
+  --token-propertyName-color: #ff98eb;
+  --token-punctuation-color: #dcadff;
+  --token-string-color: #7ac1ff;
+  --token-string2-color: #7ac1ff;
+  --token-typeName-color: #c67bff;
+  --token-variableName-color: #c67bff;
+  --token-variableName2-color: #c67bff;
+}
+
+.ResizeHandleOuter {
+  flex: 0 0 0.5rem;
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+  outline: none;
+
+  --background-color: transparent;
+}
+.ResizeHandleOuter[data-resize-handle-active],
+.ResizeHandleInner[data-collapsed] {
+  --background-color: var(--color-solid-resize-bar);
+}
+
+.ResizeHandleInner {
+  flex: 1;
+  /* border-radius: 0.75rem; */
+  background-color: var(--background-color);
+  transition: background-color 0.2s linear;
+  position: relative;
+}
+
+.ResizeHandleInner::after {
+  height: 1rem;
+  width: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--color-solid-resize-bar);
+  position: absolute;
+  left: calc(50% - 0.5rem);
+  top: calc(50% - 0.5rem);
+}
+
+.HorizontalIcon,
+.VerticalIcon {
+  color: var(--color-solid-resize-bar);
+  position: absolute;
+  left: calc(50% - 0.5rem);
+  top: calc(50% - 0.5rem);
+}
+
+.ResizeHandleOuter[data-panel-group-direction="horizontal"] .HorizontalIcon,
+.ResizeHandleOuter[data-panel-group-direction="vertical"] .VerticalIcon {
+  display: block;
+}
+.ResizeHandleOuter[data-panel-group-direction="vertical"] .HorizontalIcon,
+.ResizeHandleOuter[data-panel-group-direction="horizontal"] .VerticalIcon {
+  display: none;
+}
+.ResizeHandleOuter[data-resize-handle-active] .HorizontalIcon,
+.ResizeHandleOuter[data-resize-handle-active] .VerticalIcon {
+  display: none;
+}
+
+.ResizeIcon {
+  flex: 0 0 1rem;
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+}

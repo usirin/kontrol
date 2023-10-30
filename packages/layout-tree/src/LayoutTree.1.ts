@@ -1,13 +1,14 @@
 import {EventEmitter} from "eventemitter3";
 import {immerable, produce} from "immer";
-import {
-  tid,
+import type {
   Node,
   Group,
-  node,
   Orientation,
+  SerializedTree} from "./LayoutTree";
+import {
+  tid,
+  $node,
   group,
-  SerializedTree,
   isNode,
   serializeTree,
   flatten,
@@ -17,12 +18,12 @@ export class LayoutTree<T> extends EventEmitter {
   [immerable] = true;
 
   id = tid();
-  root: Node<T> | Group<T> = node(null) as Node<T>;
+  root: Node<T> | Group<T> = $node(null) as Node<T>;
   focused = this.root;
 
   split(orientation: Orientation) {
     const focused = this.focused as Node<T>;
-    const clone = node(focused.value);
+    const clone = $node(focused.value);
     const siblings = [focused, clone];
 
     const tree = produce(this, (draft) => {

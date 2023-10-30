@@ -34,7 +34,7 @@ export interface Group<T> {
   children: (Node<T> | Group<T>)[];
 }
 
-const node = <T>(value: T): Node<T> => {
+export const $node = <T>(value: T): Node<T> => {
   return {id: nid(), value};
 };
 
@@ -62,28 +62,52 @@ const group = <T>(
   return g as Group<T>;
 };
 
+const getFirstChild = <T>(parent: Group<T>): Node<T> => {
+  if (!parent.children.length) {
+    throw new Error("Group has no children");
+  }
+
+  if (isNode(parent.children[0])) {
+    return parent.children[0];
+  }
+
+  return getFirstChild(parent.children[0]);
+};
+
 export class LayoutTree<T> extends EventEmitter {
   id = tid();
   groups = new Map<ID<"group">, Group<T>>();
   nodes = new Map<ID<"node">, Node<T>>();
 
-  root: Node<T> | Group<T> = this.$node(null as T);
-  focused = this.root;
+  root: Node<T> | Group<T>;
+  _cached: SerializedTree<T>;
+  focused: Node<T>;
+
+  constructor(value: T) {
+    super();
+    this.root = this.$node(value);
+    this._cached = serializeTree(this.root);
+    this.focused = isNode(this.root) ? this.root : getFirstChild(this.root);
+  }
 
   $node(value: T) {
-    const newNode = node(value);
+    const newNode = $node(value);
     this.nodes.set(newNode.id, newNode);
     return newNode;
   }
 
-  $group(orientation: Orientation, children: Group<T>["children"]) {
-    const newGroup = group(orientation, children);
+  $group(
+    orientation: Orientation,
+    children: Group<T>["children"],
+    overrides?: Partial<Group<T>>,
+  ) {
+    const newGroup = group(orientation, children, overrides);
     this.groups.set(newGroup.id, newGroup);
     return newGroup;
   }
 
   split(orientation: Orientation, value?: T) {
-    const focused = this.focused as Node<T>;
+    const focused = this.focused;
     const clone = this.$node(value ?? focused.value);
 
     if (focused === this.root) {
@@ -113,6 +137,39 @@ export class LayoutTree<T> extends EventEmitter {
     return clone;
   }
 
+  remove() {
+    const focused = this.focused;
+    // if focused is root, do nothing
+    if (focused === this.root) return;
+
+    const parent = focused.parent;
+    // if focused has no parent, do nothing
+    if (!parent) throw new Error("Node has no parent");
+
+    const index = parent.children.indexOf(focused);
+
+    parent.children.splice(index, 1);
+
+    // if parent has only one child, replace parent with child
+    if (parent.children.length === 1) {
+      // if parent is root, replace root with child
+      if (!parent.parent) {
+        this.root = parent.children[0];
+        this.setFocused(this.root as Node<T>);
+        return;
+      }
+      const parentIndex = parent.parent.children.indexOf(parent);
+      parent.parent.children[parentIndex] = parent.children[0];
+      parent.children[0].parent = parent.parent;
+      this.setFocused(parent.children[0] as Node<T>);
+      return;
+    }
+
+    this.setFocused(
+      parent.children[clamp(index, 0, parent.children.length - 1)] as Node<T>,
+    );
+  }
+
   setFocused(candidate: Node<T> | SerializedNode<T>) {
     const cached = this.nodes.get(candidate.id);
     if (!cached) throw new Error("Node not found");
@@ -121,19 +178,30 @@ export class LayoutTree<T> extends EventEmitter {
     this.emitChange();
   }
 
+  setValue(value: T) {
+    const focused = this.focused;
+    focused.value = value;
+    this.emitChange();
+  }
+
   moveFocus(direction: Direction) {
-    const focused = this.focused as Node<T>;
+    const focused = this.focused;
     const sibling = findSibling(focused, direction);
     if (!sibling) return;
     this.setFocused(sibling);
   }
 
   emitChange() {
+    this.cacheSnapshot();
     this.emit("change");
   }
 
-  toJSON(): SerializedTree<T> {
-    return serializeTree(this.root);
+  getSnapshot() {
+    return this._cached;
+  }
+
+  cacheSnapshot() {
+    this._cached = serializeTree(this.root);
   }
 }
 

@@ -10,5 +10,5 @@ export function useWindowEvent<K extends keyof WindowEventMap>(
     return () => {
       window.removeEventListener(type, listener);
     };
-  });
+  }, []);
 }
