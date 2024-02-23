@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  web:
+    entrypoint: pnpx turbo dev --filter @kontrol-app/web
+    build:
+      context: ../../
+      args:
+        - WORKSPACE=@kontrol-app/web
+      dockerfile: docker/dev/Dockerfile
+    ports:
+      - "3001:3000"
