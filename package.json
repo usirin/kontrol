@@ -7,11 +7,14 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "eslint": "^8.48.0",
-    "prettier": "^3.0.3",
     "@kontrol/tsconfig": "workspace:*",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.5",
     "turbo": "latest"
   },
   "packageManager": "pnpm@8.6.10",
-  "name": "@kontrol/monorepo"
+  "name": "@kontrol/monorepo",
+  "volta": {
+    "node": "20.11.1"
+  }
 }
