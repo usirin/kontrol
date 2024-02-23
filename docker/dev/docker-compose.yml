@@ -10,3 +10,12 @@ services:
       dockerfile: docker/dev/Dockerfile
     ports:
       - "3001:3000"
+  api:
+    entrypoint: pnpx turbo dev --filter @kontrol-service/api
+    build:
+      context: ../../
+      args:
+        - WORKSPACE=@kontrol-service/api
+      dockerfile: docker/dev/Dockerfile
+    ports:
+      - "3002:3000"
