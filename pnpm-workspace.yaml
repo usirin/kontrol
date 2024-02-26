@@ -1,4 +1,6 @@
 packages:
+  - "boilerplate/*"
+
   - "apps/*"
   - "config/*"
   - "packages/*"
