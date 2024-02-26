@@ -1,4 +1,5 @@
 {
+  "name": "@kontrol/monorepo",
   "private": true,
   "scripts": {
     "build": "turbo run build",
@@ -13,7 +14,6 @@
     "turbo": "latest"
   },
   "packageManager": "pnpm@8.15.4",
-  "name": "@kontrol/monorepo",
   "volta": {
     "node": "20.11.1"
   }

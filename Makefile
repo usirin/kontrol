@@ -4,4 +4,4 @@ build-dev: ## Build the dev docker image.
 
 .PHONY: start-dev
 start-dev: ## Start the dev docker container.
-	docker compose -f docker/dev/docker-compose.yml up --build
+	docker compose -f docker/dev/docker-compose.yml up --build --remove-orphans
