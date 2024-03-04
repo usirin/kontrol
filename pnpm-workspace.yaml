@@ -1,3 +1,7 @@
 packages:
+  - "boilerplate/*"
+
   - "apps/*"
+  - "config/*"
   - "packages/*"
+  - "services/*"

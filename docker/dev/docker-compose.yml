@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  web:
+    entrypoint: pnpx turbo dev --filter @kontrol-app/web
+    build:
+      context: ../../
+      args:
+        - WORKSPACE=@kontrol-app/web
+      dockerfile: docker/dev/Dockerfile
+    ports:
+      - "3001:3000"
+  docs:
+    entrypoint: pnpx turbo dev --filter @kontrol-app/docs
+    build:
+      context: ../../
+      args:
+        - WORKSPACE=@kontrol-app/docs
+      dockerfile: docker/dev/Dockerfile
+    ports:
+      - "3002:3000"
+  api:
+    entrypoint: pnpx turbo dev --filter @kontrol-service/api
+    build:
+      context: ../../
+      args:
+        - WORKSPACE=@kontrol-service/api
+      dockerfile: docker/dev/Dockerfile
+    ports:
+      - "4000:3000"
+
+networks:
+  app_network:
+    external: true

@@ -1,5 +1,5 @@
 {
-  "name": "@kontrol/layout-tree",
+  "name": "@kontrol/boilerplate-module",
   "version": "0.0.0",
   "main": "./src/index.ts",
   "scripts": {
