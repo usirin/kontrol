@@ -5,11 +5,14 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.8.1",
-    "hono": "^4.0.7"
+    "hono": "^4.0.7",
+    "ws": "^8.16.0"
   },
   "devDependencies": {
     "@kontrol/tsconfig": "workspace:^",
     "@types/node": "^20.11.20",
-    "tsx": "^4.7.1"
+    "@types/ws": "^8.5.10",
+    "tsx": "^4.7.1",
+    "vitest": "^1.3.1"
   }
 }
