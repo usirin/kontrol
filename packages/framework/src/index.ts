@@ -19,7 +19,8 @@ export const reducer = (
   }
 };
 
-const state = reducer(0);
+let state = reducer(0);
 // state = 0
 state = reducer(state, { type: "increment" });
 // state = 1
+console.log(state);
